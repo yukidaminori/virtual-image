@@ -1,0 +1,178 @@
+body {
+    margin: 0 0 30px 0;
+    background: #fbfaf5;
+  }
+  
+  p {
+    font-size: 11px;
+    margin-top: -10px;
+  }
+  
+  .page_title {
+    height: 30px;
+    width: 100%;
+    background: #00293f;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  .input_canvas {
+    display: flex;
+    margin: 30px;
+  }
+  
+  .input_name {
+    width: 20%;
+    margin-left: 15px;
+    margin-right: 90px;
+  }
+  
+  span {
+    margin: 5px 0;
+    display: block;
+    font-weight: bold;
+  }
+  
+  #jatext,
+  #entext {
+    width: 300px;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 0.3em;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    border: 1px solid #ffffff;
+    box-shadow: 1px 1px 2px 0 #707070 inset;
+    border-radius: 4px;
+  }
+  
+  #jatext:focus,
+  #entext:focus {
+    outline: none;
+    box-shadow: inset 1px 1px 2px 0 #707070;
+  }
+  
+  ul {
+    list-style: none;
+    margin-top: 0;
+    padding-left: 0;
+  }
+  
+  ul li {
+    display: flex;
+    float: left;
+  }
+  
+  ul.group_list li {
+    position: relative;
+    width: 100%;
+  }
+  
+  ul li label {
+    display: block;
+    position: relative;
+    padding-right: 25px;
+    height: 30px;
+    cursor: pointer;
+  }
+  
+  ul li:hover label {
+    color: #9e9d9d;
+  }
+  
+  .selectdiv {
+    position: relative;
+    float: left;
+    min-width: 364px;
+  }
+  
+  select::-ms-expand {
+    display: none;
+  }
+  
+  .selectdiv:after {
+    content: "<>";
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 11px;
+    top: 18px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .selectdiv select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    max-width: 364px;
+    height: 50px;
+    float: right;
+    margin: 5px 0px;
+    padding: 0px 4px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+  }
+  
+  .m-btn {
+    width: 150px;
+    height: 40px;
+    margin: 20px 0;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #fff;
+    background: #00293f;
+    border-bottom: solid 2px #000000;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2),
+      0 2px 2px rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+  }
+  
+  .m-btn:active {
+    border-bottom: solid 2px #00293f;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .officeimage_list {
+    display: flex;
+  }
+  
+  .select_group {
+    margin-top: 35px;
+    height: 200px;
+  }
+  
+  .nyc2022 {
+    display: inline-flex;
+  }
+  
+  .nyc2022_2 {
+    height: 50px;
+  }
+  
+  .select_backgroundimage {
+    height: 160px;
+  }
+  
+  #canvas {
+    height: 540px;
+  }
+  

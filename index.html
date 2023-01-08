@@ -1,0 +1,200 @@
+<head>
+    <meta charset="utf8" />
+    <link rel="stylesheet" href="style.css" />
+    <title>バーチャル背景ダウンロードページ</title>
+  </head>
+  <body>
+    <div class="page_title">バーチャル背景ダウンロードページ</div>
+    <section class="input_canvas">
+      <div class="input_name">
+        <div class="select_backgroundimage">
+          <span>■背景パターン</span>
+          <div class="selectdiv">
+            <label>
+              <select id="images" class="backgroundimage_list">
+                <option name="backgroundimage" value="img/office1.png">オフィス背景1</option>
+                <option name="backgroundimage" value="img/office2.png">オフィス背景2</option>
+                <option name="backgroundimage" value="img/office3.png">オフィス背景3</option>
+                <option name="backgroundimage" value="img/office4.png">オフィス背景4</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <input type="button" value="選択" id="checkButton" class="m-btn">
+          </div>
+        </div>
+  
+        <div class="select_group">
+          <span>■所属</span>
+          <ul class="group_list">
+            <li><input type="radio" name="group" value="img/it_group.png" checked />
+              <label>製造部</label>
+            </li>
+            <li><input type="radio" name="group" value="img/remogu_co_group.png" />
+              <label>営業部</label>
+            </li>
+            <li><input type="radio" name="group" value="img/info_group.png" />
+              <label>コーポレート部</label>
+            </li>
+            <li><input type="radio" name="group" value="img/marketing_group.png" />
+              <label>マーケティング部</label>
+            </li>
+          </ul>
+          <img id="whitebase" src="img/white_band.png" hidden=true>
+        </div>
+  
+        <form action="#">
+          <span>■氏名</span>
+          <input id="jatext"  type= "text" value="田中 太郎" />
+          <span>■Name</span>
+          <input id="entext" type= "text" value="TANAKA Taro" />
+        </form>
+  
+        <p>注)姓と名の間には半角スペースを入れる<br>
+        <button id="download" class="m-btn">ダウンロード</button>
+      </div>
+      <canvas id="canvas" width="960" height="500"> </canvas>
+    </section>
+    <section class="export_canvas">
+      <canvas id="download_canvas" width="1920" height="1080" hidden=true> </canvas>
+    </section>
+    <script>
+      //canvasに描画
+      const draw = () => {
+        const ctx = document.getElementById("canvas").getContext("2d");
+        const jatext = document.getElementById("jatext").value;
+        const entext = document.getElementById("entext").value;
+        const whitebase = document.getElementById("whitebase");
+        let backgroundImageSrc = "";
+        let imageSelect = document.getElementById('images');
+        let selectOptions = imageSelect.selectedOptions;
+  
+        for (let i = 0 ; i < selectOptions.length ; i++){
+          backgroundImageSrc = selectOptions[i].value;
+          console.log(selectOptions[i].value);
+        }
+      
+        let checkButton = document.getElementById('checkButton');
+        checkButton.addEventListener('click', draw);
+  
+        const backgroundimage = new Image();
+        backgroundimage.src = backgroundImageSrc;
+        let groupImageSrc = "";
+        document.getElementsByName("group").forEach((item) => {
+          if (item.checked) {
+            groupImageSrc = item.value;
+          }
+        });
+        const groupimage = new Image();
+        groupimage.src = groupImageSrc;
+  
+        backgroundimage.onload = () => {
+          const backgroundimage_canvas = document.getElementById("canvas");
+          const backgroundimage_ctx = backgroundimage_canvas.getContext("2d");
+          backgroundimage_ctx.drawImage(backgroundimage, 0, 0);
+          groupimage.src = groupImageSrc;
+          groupimage.onload = () => {
+            const group_canvas = document.getElementById("canvas");
+            const group_ctx = group_canvas.getContext("2d");
+            group_ctx.drawImage(whitebase, 0, 0);
+            group_ctx.drawImage(groupimage, 0, 0);
+  
+            // 名前描画
+            ctx.font = "bold 48px  noto-sans-cjk-jp, sans-serif";
+            var jatextWidth = ctx.measureText(jatext).width;
+            ctx.fillText(jatext, (400 - jatextWidth) / 2, 500);
+            ctx.font = "24px noto-sans-cjk-jp, sans-serif";
+            var entextWidth = ctx.measureText(entext).width;
+            ctx.fillText(entext, (400 - entextWidth) / 2, 570);
+          };
+        };
+      };
+  
+      // ダウンロード
+      const download = () => {
+        const jatext = document.getElementById("jatext").value;
+        const entext = document.getElementById("entext").value;
+        const whitebase = document.getElementById("whitebase");
+        let backgroundImageSrc = "";
+        document.getElementsByName("backgroundimage").forEach((item) => {
+          if (item.selected) {
+            backgroundImageSrc = item.value;
+          }
+        });
+  
+        let groupImageSrc = "";
+        document.getElementsByName("group").forEach((item) => {
+          if (item.checked) {
+            groupImageSrc = item.value;
+          }
+        });
+  
+        const canvas = document.getElementById("download_canvas");
+        const ctx = canvas.getContext("2d");
+        const backgroundimage = new Image();
+        backgroundimage.src = backgroundImageSrc;
+        const groupimage = new Image();
+        groupimage.src = groupImageSrc;
+  
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        backgroundimage.onload = () => {
+          const backgroundimage_canvas = document.getElementById("download_canvas");
+          const backgroundimage_ctx = backgroundimage_canvas.getContext("2d");
+          backgroundimage_ctx.drawImage(backgroundimage, 0, 0);
+          groupimage.onload = () => {
+            const group_canvas = document.getElementById("download_canvas");
+            const group_ctx = group_canvas.getContext("2d");
+            group_ctx.drawImage(whitebase, 0, 0);
+            group_ctx.drawImage(groupimage, 0, 0);
+  
+            // 名前描画
+            ctx.font = "bold 48px  noto-sans-cjk-jp, sans-serif";
+            var jatextWidth = ctx.measureText(jatext).width;
+            ctx.fillText(jatext, (400 - jatextWidth) / 2, 500);
+            ctx.font = "24px noto-sans-cjk-jp, sans-serif";
+            var entextWidth = ctx.measureText(entext).width;
+            ctx.fillText(entext, (400 - entextWidth) / 2, 570);
+  
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "image.png";
+            link.click();
+          };
+        };
+      };
+  
+      window.onload = () => {
+        const ctx = document.getElementById("canvas").getContext("2d");
+        ctx.scale(0.5, 0.5);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById("download").onclick = download;
+        document.getElementById("jatext").onchange = draw;
+        document.getElementById("entext").onchange = draw;
+        document.getElementsByName("backgroundimage").forEach((item) => {
+          item.onchange = draw;
+        });
+        document.getElementsByName("group").forEach((item) => {
+          item.onchange = draw;
+        });
+        draw();
+  
+        var obj = document.forms;
+        if (!obj) return;
+        for (var i = 0; i < obj.length; i++) {
+          var ele = obj[i].elements;
+          for (var j = 0; j < ele.length; j++) {
+            if (ele[j].type != "text") continue;
+            ele[j].onfocus = value_clear;
+            ele[j].onblur = value_default;
+          }
+        }
+        function value_clear() {
+          if (this.value == this.defaultValue) this.value = "";
+        }
+        function value_default() {
+          if (!this.value) this.value = this.defaultValue;
+        }
+      };
+    </script>
+  </body>
+  </html>
